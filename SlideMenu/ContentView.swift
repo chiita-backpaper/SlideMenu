@@ -8,9 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var menuOpened = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack {
+            //            if !menuOpened {
+            NavigationView {
+                Text("Hello  World!")
+                    .navigationTitle("Slide Menu")
+                    .toolbar {
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                self.menuOpened.toggle()
+                            },
+                                   label: {
+                                Text("Open Menu")
+                                
+                            })
+                        }
+                    }
+            }
+            //            }
+            if menuOpened {
+                SideMenuView(width: UIScreen.main.bounds.width/1.6, menuOpened: menuOpened, toggleMenu: toggleMenu)
+            }
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
+    
+    func toggleMenu() {
+        menuOpened.toggle()
     }
 }
 
